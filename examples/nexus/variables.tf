@@ -85,7 +85,8 @@ variable "pve_lxc_network_gw" {
 variable "pve_lxc_cpu_cores" {
   description = "The number of cores assigned to the container."
   type        = number
-  default     = 2
+  # Use 4 cores to avoid warning about minimum CPU cores
+  default     = 4
 }
 
 variable "pve_lxc_memory" {

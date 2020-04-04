@@ -91,7 +91,8 @@ variable "pve_lxc_cpu_cores" {
 variable "pve_lxc_memory" {
   description = "Amount of RAM for the VM in MB."
   type        = number
-  default     = 4096
+  # Must be over 8GB or else Jenkins will get OOM
+  default     = 8192
 }
 
 variable "pve_lxc_storage" {
