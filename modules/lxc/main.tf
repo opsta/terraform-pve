@@ -69,7 +69,9 @@ resource "proxmox_lxc" "container" {
 data "template_file" "ansible_inventory" {
   template         = "${file("${path.module}/templates/ansible_inventory.ini")}"
   vars = {
-    instance_group = var.pve_lxc_hostname
+    # Need to replace from hyphen (-) to underscore (_) on Ansible group name
+    # to avoid [WARNING]: Invalid characters were found in group names but not replaced
+    instance_group = "${replace(var.pve_lxc_hostname, "-", "_")}"
     instance_host  = "${var.pve_lxc_hostname}-server ansible_user=${var.pve_lxc_ostemplate_ssh_user} ansible_host=${var.pve_lxc_network_ip} ansible_port=${var.pve_lxc_ostemplate_ssh_port}"
   }
 }
